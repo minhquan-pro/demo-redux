@@ -3,6 +3,7 @@ import "./edit.css";
 import Input from "../InputFiled/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../../redux/userSlice";
+import useSound from "use-sound";
 
 const EditPage = ({ setIsEdit }) => {
 	const avaUrl = [
@@ -12,9 +13,13 @@ const EditPage = ({ setIsEdit }) => {
 		"https://images.pexels.com/photos/33246790/pexels-photo-33246790.jpeg",
 		"https://images.pexels.com/photos/31942327/pexels-photo-31942327.jpeg",
 		"https://images.unsplash.com/photo-1754318099560-9d89d608d331?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+		"https://cdn.pixabay.com/photo/2025/04/30/13/05/cat-9569386_1280.jpg",
+		"https://cdn.pixabay.com/photo/2020/05/01/08/33/building-5115897_1280.jpg",
+		"https://cdn.pixabay.com/photo/2025/06/19/16/21/adventure-9669329_1280.jpg",
 	];
 
 	const users = useSelector((state) => state.user);
+	const [play] = useSound("../../../public/sound/sound-effect.mp3");
 
 	const [name, setName] = useState(users.name);
 	const [age, setAge] = useState(users.age);
@@ -60,7 +65,10 @@ const EditPage = ({ setIsEdit }) => {
 								return (
 									<div key={url}>
 										<img
-											onClick={(e) => setUrl(e.target.src)}
+											onClick={(e) => {
+												setUrl(e.target.src);
+												play();
+											}}
 											src={url}
 											alt=""
 											className="input-image"
