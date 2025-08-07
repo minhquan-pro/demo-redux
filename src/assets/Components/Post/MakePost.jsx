@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "../InputFiled/Input";
 import "./post.css";
 import { useDispatch } from "react-redux";
-import { createPost } from "../../../redux/postSLice";
+import { createPost } from "../../../redux/Slices/postSLice";
 
 const MakePost = ({ setIsOpen }) => {
 	const [title, setTitle] = useState("Add a title");

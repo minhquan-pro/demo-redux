@@ -64,6 +64,10 @@ label:nth-child(7) {
 	overflow: hidden;
 }
 
+.input-image.active {
+	background-color: red;
+}
+
 .theme-container {
 	display: flex;
 	align-items: center;

@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./edit.css";
 import Input from "../InputFiled/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { update } from "../../../redux/userSlice";
+// import { update } from "../../../redux/userSlice";
 import useSound from "use-sound";
+import { update } from "../../../redux/Slices/userSlice";
 
 const EditPage = ({ setIsEdit }) => {
 	const avaUrl = [
@@ -16,6 +17,9 @@ const EditPage = ({ setIsEdit }) => {
 		"https://cdn.pixabay.com/photo/2025/04/30/13/05/cat-9569386_1280.jpg",
 		"https://cdn.pixabay.com/photo/2020/05/01/08/33/building-5115897_1280.jpg",
 		"https://cdn.pixabay.com/photo/2025/06/19/16/21/adventure-9669329_1280.jpg",
+		"https://cdn.pixabay.com/photo/2025/07/20/07/37/hand-9723837_1280.jpg",
+		"https://cdn.pixabay.com/photo/2025/07/10/11/33/sat-9706519_1280.jpg",
+		"https://plus.unsplash.com/premium_photo-1753982324920-4f683cc337de?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 	];
 
 	const users = useSelector((state) => state.user);
@@ -24,7 +28,7 @@ const EditPage = ({ setIsEdit }) => {
 	const [name, setName] = useState(users.name);
 	const [age, setAge] = useState(users.age);
 	const [about, setAbout] = useState(users.about);
-	const [url, setUrl] = useState(users.avaUrl);
+	const [url, setAvaUrl] = useState(users.avaUrl);
 	const [theme, setTheme] = useState(users.theme);
 
 	const dispatch = useDispatch();
@@ -61,17 +65,17 @@ const EditPage = ({ setIsEdit }) => {
 
 						<label>Profile Picture</label>
 						<div className="input-image-container">
-							{avaUrl.map((url) => {
+							{avaUrl.map((value) => {
 								return (
-									<div key={url}>
+									<div key={value}>
 										<img
 											onClick={(e) => {
-												setUrl(e.target.src);
+												setAvaUrl(e.target.src);
 												play();
 											}}
-											src={url}
+											src={value}
 											alt=""
-											className="input-image"
+											className={value === url ? "input-image active" : "input-image"}
 										/>
 									</div>
 								);
