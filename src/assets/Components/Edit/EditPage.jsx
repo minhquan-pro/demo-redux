@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./edit.css";
 import Input from "../InputFiled/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../../redux/userSlice";
 
-const EditPage = () => {
+const EditPage = ({ setIsEdit }) => {
 	const avaUrl = [
 		"https://images.pexels.com/photos/33209986/pexels-photo-33209986.jpeg",
 		"https://images.pexels.com/photos/8979918/pexels-photo-8979918.jpeg",
@@ -12,26 +14,43 @@ const EditPage = () => {
 		"https://images.unsplash.com/photo-1754318099560-9d89d608d331?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
 	];
 
-	const [name, setName] = useState("Minh Quan");
-	const [age, setAge] = useState(19);
-	const [about, setAbout] = useState("I'm a student");
-	const [url, setUrl] = useState();
-	const [theme, setTheme] = useState("#ff9051");
+	const users = useSelector((state) => state.user);
+
+	const [name, setName] = useState(users.name);
+	const [age, setAge] = useState(users.age);
+	const [about, setAbout] = useState(users.about);
+	const [url, setUrl] = useState(users.avaUrl);
+	const [theme, setTheme] = useState(users.theme);
+
+	const dispatch = useDispatch();
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setIsEdit(false);
+		const newUser = {
+			name,
+			age,
+			about,
+			avaUrl: url,
+			theme,
+		};
+		dispatch(update(newUser));
+	};
 
 	return (
 		<>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<section className="edit-container">
 					<button className="close">SAVE</button>
 					<div className="edit-profile">Edit profile</div>
 					<div className="input-container">
-						<Input label="Display name" data={name} setData={setName} />
-						<Input label="Age" data={age} setData={setAge} />
+						<Input label="Name" data={users.name} setData={setName} />
+						<Input label="Age" data={users.age} setData={setAge} />
 						<Input
 							inputType="textarea"
 							classStyle="input-about"
 							label="About"
-							data={about}
+							data={users.about}
 							setData={setAbout}
 						/>
 
@@ -51,15 +70,7 @@ const EditPage = () => {
 							})}
 						</div>
 						<div className="theme-container">
-							<label>Theme</label>
-							<input
-								type="color"
-								name=""
-								id=""
-								className="theme-color"
-								value={theme}
-								onChange={(e) => setTheme(e.target.value)}
-							/>
+							<Input label="Theme" inputType="color" data={theme} setData={setTheme} />
 						</div>
 					</div>
 				</section>

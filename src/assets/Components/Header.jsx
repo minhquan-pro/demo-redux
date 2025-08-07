@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import "./Header.css";
 
 const Header = ({ setIsEdit }) => {
@@ -5,16 +6,18 @@ const Header = ({ setIsEdit }) => {
 		setIsEdit(true);
 	};
 
+	const user = useSelector((state) => state.user);
+
 	return (
-		<header style={{ background: "#ff9051" }}>
+		<header style={{ background: `${user.theme}` }}>
 			<div className="info-container">
 				<div className="info-edit" onClick={handleEdit}>
 					Edit
 				</div>
-				<img src="" className="info-ava" alt="" />
-				<div className="info-username">minhquan</div>
-				<div className="info-age">20</div>
-				<div className="info-about">Student in PTIT</div>
+				<img src={user.avaUrl} className="info-ava" alt="" />
+				<div className="info-username">{user.name}</div>
+				<div className="info-age">{user.age} tuổi</div>
+				<div className="info-about">{user.about}</div>
 			</div>
 		</header>
 	);
